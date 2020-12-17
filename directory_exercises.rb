@@ -20,8 +20,12 @@ def input_students
   students = []
   name = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    if name.split("").first.upcase == "J"
+      if name.length < 12
+        students << {name: name, cohort: :november}
+          puts "Now we have #{students.count} students"
+      end
+    end
     name = gets.chomp
   end
   students
@@ -34,9 +38,7 @@ end
 
 def print(students)
   students.each_with_index do |student, position|
-    if  student[:name].split("").first.upcase == "J"
-      puts "#{position + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+    puts "#{position + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
