@@ -34,15 +34,15 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villians Academy"
-  puts "-------------"
+  puts "The students of Villians Academy".center(50)
+  puts "-------------".center(50, "---")
 end
 
 def print(students)
   count = 0
   until count >= students.count
     students.each_with_index do |student, position|
-      puts "#{position + 1}. #{student[:name]}, #{student[:age]}, (#{student[:cohort]} cohort)"
+      puts "#{position + 1}. #{student[:name]}, #{student[:age]}, (#{student[:cohort]} cohort)".center(50)
     end
     count += students.count
   end
