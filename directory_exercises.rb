@@ -37,8 +37,12 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, position|
-    puts "#{position + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  count = 0
+  until count >= students.count
+    students.each_with_index do |student, position|
+      puts "#{position + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+    count += students.count
   end
 end
 
