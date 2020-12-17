@@ -14,21 +14,54 @@ students = [
 ]
 =end
 
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+def input_students(default_name, default_age, default_cohort)
   students = []
-  name = gets.chomp
-  while !name.empty? do
+  while true do
+    puts "Please enter the name of the student"
+    puts "To re-enter student data, enter 'typo' "
+    puts "To finish, enter 'quit'"
+    name = gets.chomp
+    if name.empty?
+      name = default_name
+    end
+    if name == "quit"
+      break
+    end
+    if name == "typo"
+      next
+    end
     if name.split("").first.upcase == "J"
       if name.length < 12
         puts "Add #{name}'s age"
         age = gets.chomp
-        students << {name: name, cohort: :november, age: age}
-          puts "Now we have #{students.count} students"
+        if age.empty?
+          age = default_age
+        end
+        if age == "quit"
+          break
+        end
+        if age == "typo"
+          next
+        end
+        puts "add cohort for #{name}"
+        cohort = gets.chomp
+        if cohort.empty?
+          cohort = default_cohort
+        end
+        if cohort == "quit"
+          break
+        end
+        if cohort == "typo"
+          next
+        end
+        students << {name: name, cohort: cohort.to_sym, age: age}
+          if students.count > 1
+            puts "Now we have #{students.count} students\nNext student name"
+          else
+            puts "Now we have our first student\nNext student name"
+          end
       end
     end
-    name = gets.chomp
   end
   students
 end
@@ -42,17 +75,21 @@ def print(students)
   count = 0
   until count >= students.count
     students.each_with_index do |student, position|
-      puts "#{position + 1}. #{student[:name]}, #{student[:age]}, (#{student[:cohort]} cohort)".center(50)
+      puts "#{position + 1}. #{student[:name].capitalize}, #{student[:age]}, (#{student[:cohort].capitalize} cohort)".center(50)
     end
     count += students.count
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.count > 1
+    puts "Overall, we have #{students.count} great students".center(50, " ")
+  else
+    puts "Overall, we have 1 great student".center(50, " ")
+  end
 end
 
-students = input_students
+students = input_students("no name", "no age", "no cohort")
 print_header
 print(students)
 print_footer(students)
