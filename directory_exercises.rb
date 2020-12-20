@@ -56,9 +56,9 @@ def input_students(default_name, default_age, default_cohort)
         end
         students << {name: name, cohort: cohort.to_sym, age: age}
           if students.count > 1
-            puts "Now we have #{students.count} students\nNext student name"
+            puts "Now we have #{students.count} students"
           else
-            puts "Now we have our first student\nNext student name"
+            puts "Now we have our first student"
           end
       end
     end
@@ -71,15 +71,25 @@ def print_header
   puts "-------------".center(50, "---")
 end
 
-def print(students)
-  count = 0
-  until count >= students.count
-    students.each_with_index do |student, position|
-      puts "#{position + 1}. #{student[:name].capitalize}, #{student[:age]}, (#{student[:cohort].capitalize} cohort)".center(50)
+def print_by_cohort(students)
+  cohorts = students.map do |student|
+    student[:cohort]
+  end
+  cohorts.uniq.each do |cohort|
+    puts "#{cohort} cohort".upcase.center(50)
+    students.each do |student|
+      if student[:cohort] == cohort
+        puts "#{student[:name]}, #{student[:age]}"
+      end
     end
-    count += students.count
   end
 end
+
+#def print(students)
+  #students.each_with_index do |student, position|
+    #puts "#{position + 1}. #{student[:name].capitalize}, #{student[:age]}, (#{student[:cohort].capitalize} cohort)".center(50)
+  #end
+#end
 
 def print_footer(students)
   if students.count > 1
@@ -91,5 +101,5 @@ end
 
 students = input_students("no name", "no age", "no cohort")
 print_header
-print(students)
+print_by_cohort(students)
 print_footer(students)
