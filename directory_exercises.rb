@@ -20,7 +20,7 @@ def input_students(default_name, default_age, default_cohort)
     puts "Please enter the name of the student"
     puts "To re-enter student data, enter 'typo' "
     puts "To finish, enter 'quit'"
-    name = gets.chomp
+    name = gets.chop
     if name.empty?
       name = default_name
     end
@@ -33,7 +33,7 @@ def input_students(default_name, default_age, default_cohort)
     if name.split("").first.upcase == "J"
       if name.length < 12
         puts "Add #{name}'s age"
-        age = gets.chomp
+        age = gets.chop
         if age.empty?
           age = default_age
         end
@@ -44,7 +44,7 @@ def input_students(default_name, default_age, default_cohort)
           next
         end
         puts "add cohort for #{name}"
-        cohort = gets.chomp
+        cohort = gets.chop
         if cohort.empty?
           cohort = default_cohort
         end
