@@ -66,9 +66,11 @@ def input_students(default_name, default_age, default_cohort)
   students
 end
 
-def print_header
-  puts "The students of Villians Academy".center(50)
-  puts "-------------".center(50, "---")
+def print_header(students)
+  if students.count >= 1
+    puts "The students of Villians Academy".center(50)
+    puts "-------------".center(50, "---")
+  end
 end
 
 def print_by_cohort(students)
@@ -94,12 +96,12 @@ end
 def print_footer(students)
   if students.count > 1
     puts "Overall, we have #{students.count} great students".center(50, " ")
-  else
+  elsif students.count == 1
     puts "Overall, we have 1 great student".center(50, " ")
   end
 end
 
 students = input_students("no name", "no age", "no cohort")
-print_header
+print_header(students)
 print_by_cohort(students)
 print_footer(students)
