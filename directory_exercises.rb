@@ -15,7 +15,7 @@ end
 def process(selection)
   case selection
   when "1"
-    input_students("no name", "no age", "no cohort")
+    input_students
   when "2"
     show_students
   when "9"
@@ -32,7 +32,7 @@ def interactive_menu
   end
 end
 
-def input_students(default_name, default_age, default_cohort)
+def input_students(default_name = "no name", default_age = "no age", default_cohort = "no cohort")
   while true do
     puts "Please enter the name of the student"
     puts "To re-enter student data, enter 'typo' "
