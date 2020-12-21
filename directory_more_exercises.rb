@@ -13,7 +13,7 @@ def try_load_students
   end
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -23,8 +23,8 @@ def load_students(filename = "students.csv")
   puts "Students Loaded!"
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(filename)
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -78,9 +78,21 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    save_students
+    puts "What would you like to save this list as?"
+    filename = STDIN.gets.chomp
+    if File.exists?(filename)
+      save_students(filename)
+    else
+      puts "Sorry, that file doesn't exist"
+    end
   when "4"
-    load_students
+    puts "What file would you like to load?"
+    filename = STDIN.gets.chomp
+    if File.exists?(filename)
+      load_students(filename)
+    else
+      puts "Sorry, that file doesn't exist"
+    end
   when "9"
     exit
   else
