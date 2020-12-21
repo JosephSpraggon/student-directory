@@ -1,27 +1,38 @@
+@students = []
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_students_by_cohort
+  print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students("no name", "no age", "no cohort")
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you mean, try again"
+  end
+end
+
 def interactive_menu
-  students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-    case selection
-    when "1"
-      students = input_students("no name", "no age", "no cohort")
-    when "2"
-      print_header(students)
-      print_by_cohort(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you mean, try again"
-    end
+    print_menu
+    process(gets.chomp)
   end
 end
 
 def input_students(default_name, default_age, default_cohort)
-  students = []
   while true do
     puts "Please enter the name of the student"
     puts "To re-enter student data, enter 'typo' "
@@ -60,32 +71,32 @@ def input_students(default_name, default_age, default_cohort)
         if cohort == "typo"
           next
         end
-        students << {name: name, cohort: cohort.to_sym, age: age}
-          if students.count > 1
-            puts "Now we have #{students.count} students"
+        @students << {name: name, cohort: cohort.to_sym, age: age}
+          if @students.count > 1
+            puts "Now we have #{@students.count} students"
           else
             puts "Now we have our first student"
           end
       end
     end
   end
-  students
+  @students
 end
 
-def print_header(students)
-  if students.count >= 1
+def print_header
+  if @students.count >= 1
     puts "The students of Villians Academy".center(50)
     puts "-------------".center(50, "---")
   end
 end
 
-def print_by_cohort(students)
-  cohorts = students.map do |student|
+def print_students_by_cohort
+  cohorts = @students.map do |student|
     student[:cohort]
   end
   cohorts.uniq.each do |cohort|
     puts "#{cohort} cohort".upcase.center(50)
-    students.each do |student|
+    @students.each do |student|
       if student[:cohort] == cohort
         puts "#{student[:name]}, #{student[:age]}"
       end
@@ -99,10 +110,10 @@ end
   #end
 #end
 
-def print_footer(students)
-  if students.count > 1
-    puts "Overall, we have #{students.count} great students".center(50, " ")
-  elsif students.count == 1
+def print_footer
+  if @students.count > 1
+    puts "Overall, we have #{@students.count} great students".center(50, " ")
+  elsif @students.count == 1
     puts "Overall, we have 1 great student".center(50, " ")
   end
 end
