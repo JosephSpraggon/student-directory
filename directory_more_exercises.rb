@@ -20,6 +20,7 @@ def load_students(filename = "students.csv")
     add_students(name, cohort)
   end
   file.close
+  puts "Students Loaded!"
 end
 
 def save_students
@@ -30,6 +31,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "Students saved!"
 end
 
 def add_students(name = "no name", cohort = "november")
